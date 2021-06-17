@@ -18,13 +18,14 @@ class PostsController extends Controller
     public function store(){
         $data = request()->validate([
            'caption' => 'required',
-           'image'=> 'required|mimes:jpg,jpeg,png,gif,svg'
+           'image'=> 'required|mimes:jpg,jpeg,png,gif,svg|max:2048'
         ]);
         
-        $imagePath = request('image')->store('uploads','public');
+        //$imagePath = request('image')->store('uploads','public');
+        $imagePath = request()->image->store('uploads','public');
 
-        $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
-        $image->save();
+        //$image = Image::make("storage/{$imagePath}")->fit(1200,1200);
+        //$image->save();
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
@@ -47,7 +48,7 @@ class PostsController extends Controller
 
     public function index(){
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id',$users)->orderBy('created_at','DESC')->paginate(5);
+        $posts = Post::whereIn('user_id',$users)->orderBy('created_at','DESC')->paginate(6);
         return view('posts.index',compact('posts'));
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-lg-3"><img src="{{$user->profile->profileImage()}}" alt="" style="max-height: 220px;" class="rounded-circle"></div>
+        <div class="col-lg-3"><img src="{{$user->profile->profileImage()}}" alt="" style="max-height: 220px; width:100%" class="rounded-circle"></div>
         <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex">
